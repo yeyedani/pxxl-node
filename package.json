@@ -1,1 +1,1 @@
-{"name":"pxxl-node","private":true,"scripts":{"start":"node server.js"},"version":"1.0.0"}
+{"dependencies":{"adm-zip":"^0.5.16","tar":"^7.4.3"},"name":"pxxl-node","private":true,"scripts":{"start":"node server.js"},"version":"1.0.1"}
