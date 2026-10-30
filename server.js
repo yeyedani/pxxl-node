@@ -55,10 +55,10 @@ async function ensureBinaries() {
         let d = ''; r.on('data', c => d += c); r.on('end', () => res(d));
       }).on('error', rej);
     });
-    const m = JSON.parse(api).assets.find(a => a.name.includes(`linux-${arch}.tar.gz`));
-    if (!m) throw new Error('sing-box asset not found');
+    const m = (JSON.parse(api).assets || []).find(a => a.name.includes(`linux-${arch}.tar.gz`));
+    const dlUrl = m ? m.browser_download_url : `https://github.com/SagerNet/sing-box/releases/download/v1.14.4/sing-box-1.14.4-linux-${arch}.tar.gz`;
     const tarPath = path.join(TMP, 'sb.tar.gz');
-    await download(m.browser_download_url, tarPath);
+    await download(dlUrl, tarPath);
     const tar = require('tar');
     await tar.x({ file: tarPath, cwd: TMP, strip: 1, filter: (p) => p.endsWith('/sing-box') });
     fs.chmodSync(sb, 0o755);
